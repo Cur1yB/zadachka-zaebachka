@@ -1,4 +1,8 @@
 '''
+Короче надо написать функцию add(n), которая принимает число, при обращении 
+к ней без вызова будет возвращать число, а при множественном вызове будет 
+суммировать числа, чекай пример ниже броще, братец.
+
 add(1)(2)(3) # 6
 add(1)(2)(3)(4); # 10
 add(1)(2)(3)(4)(5) # 15
@@ -20,11 +24,9 @@ def add(n):
             self.number = n
 
         def __call__(self, *args, **kwds):
-            if isinstance(args[0], Number):
-                args=(int(args[0]),)
             if self.parent is None:
-                return Number(self.number+args[0], parent=self)
-            return Number(self.number + self.parent.number)
+                return Number(self.number+int(args[0]), parent=self)
+            return Number(self.number + int(args[0]))
 
         def __int__(self):
             return self.number
@@ -33,7 +35,7 @@ def add(n):
             return str(self.number)
 
         def __add__(self, other):
-            return int(self.number) + int(other)
+            return self.number + other
         
         def __eq__(self, value):
             return int(self) == int(value)
@@ -43,9 +45,7 @@ def add(n):
         
     return Number(n)
 
-print(add(5)(66)(9) + 90)
-
-'''a = add(5)
+a = add(5)
 assert not (a == 6)
 assert a == 5
 b = a(a)
@@ -78,6 +78,47 @@ assert j == 29
 k = e + 0
 assert not (k == 6)
 assert k == 7
-l = g(e)'''
+l = g(e)
 
-# https://www.codewars.com/kata/539a0e4d85e3425cb0000a88/train/python
+a = add(4)
+assert a == 4
+assert not (a == 3)
+b = a(7)
+assert b == 11
+assert not (b == 12)
+c = b(6)
+assert c == 17
+assert not (c == 16)
+d = c(b)
+assert not (d == 27)
+assert d == 28
+e = b(0)
+assert e == 11
+assert not (e == 12)
+f = e + 3
+assert f == 14
+assert not (f == 13)
+g = a(3)
+assert g == 7
+assert not (g == 6)
+h = d(b)
+assert not (h == 40)
+assert h == 39
+i = add(3)
+assert i == 3
+assert not (i == 2)
+j = c(7)
+assert j == 24
+assert not (j == 25)
+k = i(g)
+assert k == 10
+assert not (k == 11)
+l = j(b)
+assert not (l == 34)
+assert l == 35
+m = e(4)
+assert not (m == 14)
+assert m == 15
+n = k(c)
+
+# POLUCHILA SUCHKA
